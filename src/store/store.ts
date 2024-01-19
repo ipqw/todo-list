@@ -27,13 +27,14 @@ class Storage{
         this._user = user
     }
     downloadUserData = async () => {
-        const response: Promise<IUser> | void = await fetch(`${this.server}user/${localStorage.getItem('username')}`, {
+        const response: any = await fetch(`${this.server}user/${localStorage.getItem('username')}`, {
             method: 'GET',
         })
         .then(res => res.json())
         .then(res => {this.setTasks(res.tasks); return res})
-        .then(res => this.setUser(res))
+        .then(res => {this.setUser(res); return res})
         .catch((err: Error) => {
+            this.setUser(null)
             console.error(`Error: ${err}`)
         })
         return response
@@ -54,7 +55,7 @@ class Storage{
         return response
     }
     registration = async (username: string) => {
-        const response: Promise<IUser> | void = await fetch(`${this.server}user`, {
+        const response: any = await fetch(`${this.server}user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -62,7 +63,9 @@ class Storage{
             body: JSON.stringify({username})
         })
         .then(res => res.json())
+        .then(res => {this.setUser(res); return res})
         .catch((err: Error) => {
+            this.setUser(null)
             console.error(`Error: ${err}`)
         })
         return response

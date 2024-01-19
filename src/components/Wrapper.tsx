@@ -14,4 +14,5 @@ const WrapperDiv = styled.div`
     background-color: #1a1d23;
     width: 100vw;
     min-height: 100lvh;
+    max-width: 100%;
 `
