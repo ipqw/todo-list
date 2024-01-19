@@ -6,26 +6,26 @@ import { TodoPage } from './pages/TodoPage';
 import { RegPage } from './pages/RegPage';
 
 export const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <TodoPage/>,
-      errorElement: <ErrorPage />
-    },
-    {
-      path: "/login",
-      element: <LoginPage/>,
-      errorElement: <ErrorPage />
-    },
-    {
-      path: "/reg",
-      element: <RegPage/>,
-      errorElement: <ErrorPage />
-    },
-  ]);
-  return (
-    <Wrapper>
-      <RouterProvider router={router}/>
-    </Wrapper>
-  )
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: <TodoPage/>,
+            errorElement: <ErrorPage />
+        },
+        {
+            path: "/login",
+            element: <LoginPage/>,
+            errorElement: <ErrorPage />
+        },
+        {
+        path: "/reg",
+        element: <RegPage/>,
+        errorElement: <ErrorPage />
+        },
+    ]);
+    return (
+        <Wrapper>
+            <RouterProvider router={router}/>
+        </Wrapper>
+    )
 }

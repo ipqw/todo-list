@@ -1,10 +1,11 @@
 import { makeAutoObservable } from 'mobx'
-import { ITask, IUser } from '../types'
+import { ITask, IUser, Statuses } from '../types'
 class Storage{
     constructor(){
         makeAutoObservable(this)
     }
-    _server = 'https://todo-list-server-ipqw.vercel.app/api/'
+    // _server = 'https://todo-list-server-ipqw.vercel.app/api/'
+    _server = 'http://localhost:5000/api/'
     get server(){
         return this._server
     }
@@ -18,12 +19,35 @@ class Storage{
     addTask = (task: ITask) => {
         this._tasks.push(task)
     }
-    downloadTasksData = async () => {
+    _user: IUser | null = null
+    get user(){
+        return this._user
+    }
+    setUser = (user: IUser | null) => {
+        this._user = user
+    }
+    downloadUserData = async () => {
         const response: Promise<IUser> | void = await fetch(`${this.server}user/${localStorage.getItem('username')}`, {
             method: 'GET',
         })
         .then(res => res.json())
-        .then(res => this.setTasks(res.tasks))
+        .then(res => {this.setTasks(res.tasks); return res})
+        .then(res => this.setUser(res))
+        .catch((err: Error) => {
+            console.error(`Error: ${err}`)
+        })
+        return response
+    }
+    createTask = async (title: string, description: string, status: Statuses) => {
+        const response: Promise<IUser> | void = await fetch(`${this.server}task`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({title, description, status, userId: this.user?.id})
+        })
+        .then(res => res.json())
+        .then(() => this.downloadUserData())
         .catch((err: Error) => {
             console.error(`Error: ${err}`)
         })
@@ -38,7 +62,6 @@ class Storage{
             body: JSON.stringify({username})
         })
         .then(res => res.json())
-        .then(res => this.setTasks(res.tasks))
         .catch((err: Error) => {
             console.error(`Error: ${err}`)
         })
@@ -53,7 +76,7 @@ class Storage{
             body: JSON.stringify({title, description, status})
         })
         .then(res => res.json())
-        .then(() => this.downloadTasksData())
+        .then(() => this.downloadUserData())
         .catch((err: Error) => {
             console.error(`Error: ${err}`)
         })

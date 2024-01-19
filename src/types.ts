@@ -1,11 +1,17 @@
 export interface ITask {
-    id: number
+    id: number | undefined
     title: string
     description: string | null,
-    status: 'In progress' | 'Completed' | 'Awaits'
+    status: Statuses
+    userId: number | undefined
 }
 export interface IUser {
     id: number
     username: string
     tasks: ITask[]
+}
+export enum Statuses{
+    IN_PROGRESS = 'In progress',
+    COMPLETED = 'Completed',
+    PENDING = 'Pending' 
 }
