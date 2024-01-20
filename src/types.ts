@@ -1,8 +1,8 @@
 export interface ITask {
     id: number | undefined
     title: string
-    description: string | null,
-    status: Statuses
+    description: string | null
+    status: Statuses | string
     userId: number | undefined
 }
 export interface IUser {
