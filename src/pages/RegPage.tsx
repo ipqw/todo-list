@@ -39,7 +39,7 @@ export const RegPage = observer(() => {
                 </StyledInputGroup>
                 <Error>{error}</Error>
             </ContentWrapper>
-            <Footer>Do you have an account yet? <Link href='./login '>Login</Link></Footer>
+            <Footer>Do you have an account yet? <Link href='/login '>Login</Link></Footer>
         </Wrapper>
     )
 })

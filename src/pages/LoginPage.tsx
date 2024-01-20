@@ -39,7 +39,7 @@ export const LoginPage = observer(() => {
                 </StyledInputGroup>
                 <Error>{error}</Error>
             </ContentWrapper>
-            <Footer>Don't have an account? <Link href='./reg'>Sign up</Link></Footer>
+            <Footer>Don't have an account? <Link href='/reg'>Sign up</Link></Footer>
         </Wrapper>
     )
 })

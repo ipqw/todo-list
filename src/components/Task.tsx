@@ -1,28 +1,9 @@
 import styled from 'styled-components'
 import { ITask } from '../types'
-import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, ButtonGroup, Editable, EditableInput, EditablePreview, Flex, IconButton, Input, useEditableControls } from '@chakra-ui/react'
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box} from '@chakra-ui/react'
 import { store } from '../store/store'
 export const Task = ({title, description, status, id}: ITask) => {
-    const EditableControls = () => {
-        const {
-            isEditing,
-            getSubmitButtonProps,
-            getCancelButtonProps,
-            getEditButtonProps,
-        } = useEditableControls()
-    
-        return isEditing ? (
-            <ButtonGroup justifyContent='center' size='sm'>
-                <CheckIcon color='white' {...getSubmitButtonProps()} />
-                <CloseIcon color='white' {...getCancelButtonProps()} />
-            </ButtonGroup>
-        ) : (
-            <Flex justifyContent='center'>
-                <EditIcon color='white' {...getEditButtonProps()} />
-            </Flex>
-        )
-    }
     return(
         <Wrapper>
             <StyledAccordion allowToggle>
@@ -58,7 +39,7 @@ const Title = styled.p`
     color: #ffffff;
     height: min-content;
 `
-const Text = styled.p`
+export const Text = styled.p`
     color: #ffffff;
 `
 const Wrapper = styled.div`
