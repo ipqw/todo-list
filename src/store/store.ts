@@ -85,5 +85,20 @@ class Storage{
         })
         return response
     }
+    deleteTask = async (id: number) => {
+        const response: Promise<ITask> | void = await fetch(`${this.server}task`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id})
+        })
+        .then(res => res.json())
+        .then(() => this.downloadUserData())
+        .catch((err: Error) => {
+            console.error(`Error: ${err}`)
+        })
+        return response
+    }
 }
 export const store = new Storage()

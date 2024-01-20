@@ -2,11 +2,11 @@ import { observer } from 'mobx-react'
 import { styled } from 'styled-components'
 export const ErrorPage = observer(() => {
 
-  return (
-    <Wrapper>
-        
-    </Wrapper>
-  )
+    return (
+        <Wrapper>
+            
+        </Wrapper>
+    )
 })
 
 const Wrapper = styled.div`

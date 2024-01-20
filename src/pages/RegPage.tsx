@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { styled } from 'styled-components'
-import { Title } from './TodoPage'
+import { ContentWrapper, Footer, Link, Title, Wrapper } from './TodoPage'
 import { Avatar, Input, InputGroup, InputLeftElement, InputRightElement } from '@chakra-ui/react'
 import { ArrowRightIcon } from '@chakra-ui/icons'
 import { useEffect, useState } from 'react'
@@ -25,18 +25,21 @@ export const RegPage = observer(() => {
         }
     }
     return (
-        <Wrapper>
-            <Title>Registration</Title>
-            <StyledInputGroup>
-                <InputLeftElement pointerEvents='none' color='gray.300' fontSize='1.2em'>
-                    <Avatar size='xs' bg='teal.500' />
-                </InputLeftElement>
-                <Input color='white' value={username} onChange={(e) => setUsername(e.target.value)} variant='outline' placeholder='Username' />
-                <InputRightElement color='gray.300' fontSize='1.2em'>
-                    <StyledArrowRightIcon onClick={handleRegistration} />
-                </InputRightElement>
-            </StyledInputGroup>
-            <Error>{error}</Error>
+        <Wrapper style={{minHeight: '250px'}}>
+            <ContentWrapper style={{minHeight: '250px'}}>
+                <Title>Registration</Title>
+                <StyledInputGroup>
+                    <InputLeftElement pointerEvents='none' color='gray.300' fontSize='1.2em'>
+                        <Avatar size='xs' bg='teal.500' />
+                    </InputLeftElement>
+                    <Input color='white' value={username} onChange={(e) => setUsername(e.target.value)} variant='outline' placeholder='Username' />
+                    <InputRightElement color='gray.300' fontSize='1.2em'>
+                        <StyledArrowRightIcon onClick={handleRegistration} />
+                    </InputRightElement>
+                </StyledInputGroup>
+                <Error>{error}</Error>
+            </ContentWrapper>
+            <Footer>Do you have an account yet? <Link href='./login '>Login</Link></Footer>
         </Wrapper>
     )
 })
@@ -46,19 +49,6 @@ const StyledArrowRightIcon = styled(ArrowRightIcon)`
 const Error = styled.p`
     color: #ffffff;
     padding-top: 30px;
-`
-const Wrapper = styled.div`
-    padding: 10px 15px;
-    margin-top: 15vh;
-    width: 500px;
-    min-height: 300px;
-    height: min-content;    
-    background-color: #23272f;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 15px;
-    margin-bottom: 250px;
 `
 const StyledInputGroup = styled(InputGroup)`
     margin-top: 30px;

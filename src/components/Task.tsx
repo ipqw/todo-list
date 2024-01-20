@@ -1,9 +1,28 @@
 import styled from 'styled-components'
 import { ITask } from '../types'
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from '@chakra-ui/react'
-export const Task = ({title, description, status}: ITask) => {
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, ButtonGroup, Editable, EditableInput, EditablePreview, Flex, IconButton, Input, useEditableControls } from '@chakra-ui/react'
+import { store } from '../store/store'
+export const Task = ({title, description, status, id}: ITask) => {
+    const EditableControls = () => {
+        const {
+            isEditing,
+            getSubmitButtonProps,
+            getCancelButtonProps,
+            getEditButtonProps,
+        } = useEditableControls()
     
+        return isEditing ? (
+            <ButtonGroup justifyContent='center' size='sm'>
+                <CheckIcon color='white' {...getSubmitButtonProps()} />
+                <CloseIcon color='white' {...getCancelButtonProps()} />
+            </ButtonGroup>
+        ) : (
+            <Flex justifyContent='center'>
+                <EditIcon color='white' {...getEditButtonProps()} />
+            </Flex>
+        )
+    }
     return(
         <Wrapper>
             <StyledAccordion allowToggle>
@@ -16,7 +35,7 @@ export const Task = ({title, description, status}: ITask) => {
                             <AccordionIcon boxSize={8} color='white' />
                         </AccordionButton>
                         <EditIcon style={{marginRight: '15px'}} boxSize={6} color='white'/>
-                        <DeleteIcon boxSize={6} color='white'/>
+                        <DeleteIcon onClick={() => store.deleteTask(id || 0)} style={{cursor: 'pointer'}} boxSize={6} color='white'/>
                     </AccordionItemTop>
                     <AccordionPanel pb={4}>
                         <Text>{description}</Text>
