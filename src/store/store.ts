@@ -4,8 +4,7 @@ class Storage{
     constructor(){
         makeAutoObservable(this)
     }
-    // _server = 'https://todo-list-server-ipqw.vercel.app/api/'
-    _server = 'http://localhost:5000/api/'
+    _server = 'https://todo-list-server-ipqw.vercel.app/api/'
     get server(){
         return this._server
     }
