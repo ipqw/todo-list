@@ -7,17 +7,18 @@ import { store } from '../store/store'
 import { ITask, Statuses } from '../types'
 import { Task } from '../components/Task'
 import { useNavigate } from 'react-router-dom'
+import { useWindowDimensions } from '../hooks/useWindowDimensions'
 
 export const TodoPage = observer(() => {
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const navigate = useNavigate()
+  const { width } = useWindowDimensions();
   useEffect(() => {
     if(!localStorage.getItem('username')){
         navigate('/login', {replace: true})
     }
     store.downloadUserData()
-
   }, [])
   const addTask = () => {
     store.createTask(title, description, Statuses.PENDING)
@@ -34,11 +35,11 @@ export const TodoPage = observer(() => {
                         <Input color='#ffffff' variant='flushed' placeholder='Add task' value={title} onChange={(e) => setTitle(e.target.value)} maxLength={40} />
                         <Input color='#ffffff' size='xs' variant='flushed' placeholder='Add description' value={description} onChange={(e) => setDescription(e.target.value)} />
                     </StyledInputGroup>
-                    <StyledCheckIcon boxSize={10} viewBox='0 -1.5 14 14' onClick={addTask} color='green.500' />
+                    <StyledCheckIcon boxSize={width < 250 ? 6 : 10} viewBox='0 -1.5 14 14' onClick={addTask} color='green.500' />
                 </InputWrapper>
             </FormWrapper>
             {store.tasks.map((task: ITask) => {
-                return <Task title={task.title} key={Math.random()} description={task.description} status={task.status} id={task.id} userId={task.userId}/>
+                return <Task title={task.title} key={task.id} description={task.description} status={task.status} id={task.id} userId={task.userId}/>
             })}
         </ContentWrapper>
         <Footer><Link href='/login'>Logout</Link></Footer>
@@ -60,6 +61,16 @@ export const ContentWrapper = styled.div`
     width: 500px;
     min-height: 500px;
     height: min-content;    
+    @media screen and (max-width: 500px){
+        width: 250px;
+    }
+    @media screen and (max-width: 250px){
+        width: 200px;
+        padding: 0 5px;
+    }
+    @media screen and (max-width: 200px){
+        width: 150px;
+    }
 `
 export const Footer = styled.p`
     font-size: calc(8px + 0.5vw);
@@ -93,6 +104,12 @@ export const Title = styled.p`
     font-size: calc(28px + 0.5vw);
     padding-top: 10px;
     padding-bottom: 10px;
+    @media screen and (max-width: 250px){
+        font-size: 24px;
+    }
+    @media screen and (max-width: 200px){
+        
+    }
 `
 export const Wrapper = styled.div`
     margin-top: 15vh;
@@ -106,4 +123,13 @@ export const Wrapper = styled.div`
     border-radius: 15px;
     margin-bottom: 250px;
     justify-content: space-between;
+    @media screen and (max-width: 500px){
+        width: 250px;
+    }
+    @media screen and (max-width: 250px){
+        width: 200px;
+    }
+    @media screen and (max-width: 200px){
+        width: 150px;
+    }
 `

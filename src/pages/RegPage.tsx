@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react'
 import { styled } from 'styled-components'
-import { ContentWrapper, Footer, Link, Title, Wrapper } from './TodoPage'
+import { ContentWrapper, Footer, Link, Title } from './TodoPage'
 import { Avatar, Input, InputGroup, InputLeftElement, InputRightElement } from '@chakra-ui/react'
 import { ArrowRightIcon } from '@chakra-ui/icons'
 import { useEffect, useState } from 'react'
 import { store } from '../store/store'
 import { useNavigate } from 'react-router-dom'
+import { StyledWrapper } from './LoginPage'
 export const RegPage = observer(() => {
     const navigate = useNavigate()
     const [username, setUsername] = useState<string>('')
@@ -25,9 +26,9 @@ export const RegPage = observer(() => {
         }
     }
     return (
-        <Wrapper style={{minHeight: '250px'}}>
+        <StyledWrapper style={{minHeight: '250px'}}>
             <ContentWrapper style={{minHeight: '250px'}}>
-                <Title>Registration</Title>
+                <StyledTitle>Registration</StyledTitle>
                 <StyledInputGroup>
                     <InputLeftElement pointerEvents='none' color='gray.300' fontSize='1.2em'>
                         <Avatar size='xs' bg='teal.500' />
@@ -40,9 +41,14 @@ export const RegPage = observer(() => {
                 <Error>{error}</Error>
             </ContentWrapper>
             <Footer>Do you have an account yet? <Link href='/login '>Login</Link></Footer>
-        </Wrapper>
+        </StyledWrapper>
     )
 })
+const StyledTitle = styled(Title)`
+    @media screen and (max-width: 250px){
+        font-size: 20px;    
+    };
+`
 const StyledArrowRightIcon = styled(ArrowRightIcon)`
     cursor: pointer;
 `

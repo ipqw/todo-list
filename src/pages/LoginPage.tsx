@@ -25,7 +25,7 @@ export const LoginPage = observer(() => {
         }
     }
     return (
-        <Wrapper style={{minHeight: '250px'}}>
+        <StyledWrapper style={{minHeight: '250px'}}>
             <ContentWrapper style={{minHeight: '250px'}}>
                 <Title>Login</Title>
                 <StyledInputGroup>
@@ -40,9 +40,12 @@ export const LoginPage = observer(() => {
                 <Error>{error}</Error>
             </ContentWrapper>
             <Footer>Don't have an account? <Link href='/reg'>Sign up</Link></Footer>
-        </Wrapper>
+        </StyledWrapper>
     )
 })
+export const StyledWrapper = styled(Wrapper)`
+    min-height: 250px;
+`
 
 const StyledArrowRightIcon = styled(ArrowRightIcon)`
     cursor: pointer;
